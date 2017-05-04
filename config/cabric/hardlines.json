@@ -1,0 +1,18 @@
+{
+  "filebeat-deploy": {
+    "title": "部署filebeat客户端环境",
+    "workflow": [
+      "cab install --env=filebeat-client --skip-pyenv --skip-node --skip-pypi",
+      "cab config --env=filebeat-client --restart=filebeat"
+    ]
+  },
+  "elk-deploy": {
+    "title": "部署elk服务端环境",
+    "workflow": [
+      "fab ez:elk-server rpm_import",
+      "cab install --env=elk-server --skip-pyenv --skip-node --skip-pypi",
+      "cab config --env=elk-server --restart kibana logstash elasticsearch",
+      "fab ez:elk-server kibana_dashboards"
+    ]
+  }
+}
